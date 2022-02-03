@@ -1,4 +1,4 @@
-import React, { useContext, useReducer} from "react";
+import React, { useContext, useEffect, useReducer } from "react";
 import cartItems from "./data";
 import reducer from "./reducer";
 // ATTENTION!!!!!!!!!!
@@ -12,24 +12,28 @@ const initialState = {
   total: 0,
   amount: 0,
 };
+
 const AppProvider = ({ children }) => {
   const [state, dispatch] = useReducer(reducer, initialState);
 
   const clearCart = () => {
-    dispatch({type: "CLEAR_CART"})
-  }
+    dispatch({ type: "CLEAR_CART" });
+  };
 
-  const increment = id => {
-    dispatch({type: "INCREASE", payload: id})
-  }
-  const decrement = id => {
-    dispatch({type: "DECREASE", payload: id})
-  }
+  const increment = (id) => {
+    dispatch({ type: "INCREASE", payload: id });
+  };
+  const decrement = (id) => {
+    dispatch({ type: "DECREASE", payload: id });
+  };
 
-  const remove = id => {
-    dispatch({type: "REMOVE", payload: id})
-  }
+  const remove = (id) => {
+    dispatch({ type: "REMOVE", payload: id });
+  };
 
+  useEffect(() => {
+    dispatch({ type: "GET_TOTALS" });
+  }, [state.cart]);
   return (
     <AppContext.Provider
       value={{
