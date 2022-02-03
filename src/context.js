@@ -3,7 +3,7 @@ import cartItems from "./data";
 import reducer from "./reducer";
 // ATTENTION!!!!!!!!!!
 // I SWITCHED TO PERMANENT DOMAIN
-// const url = "https://course-api.com/react-useReducer-cart-project";÷
+const url = "https://course-api.com/react-useReducer-cart-project";
 const AppContext = React.createContext();
 
 const initialState = {
@@ -34,6 +34,18 @@ const AppProvider = ({ children }) => {
   useEffect(() => {
     dispatch({ type: "GET_TOTALS" });
   }, [state.cart]);
+
+  // Using an API to get data
+  const fetchData = async () => {
+   dispatch({type: "LOADING"})
+   const response = await fetch(url)
+   const cart = await response.json()
+   dispatch({type: "DISPLAY_ITEMS", payload:cart}) 
+  }
+  useEffect(() => {
+    fetchData()
+  }, [])
+  
   return (
     <AppContext.Provider
       value={{
