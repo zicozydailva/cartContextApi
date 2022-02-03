@@ -1,9 +1,9 @@
-import React, { useState, useContext, useReducer, useEffect } from "react";
+import React, { useContext, useReducer} from "react";
 import cartItems from "./data";
 import reducer from "./reducer";
 // ATTENTION!!!!!!!!!!
 // I SWITCHED TO PERMANENT DOMAIN
-const url = "https://course-api.com/react-useReducer-cart-project";
+// const url = "https://course-api.com/react-useReducer-cart-project";÷
 const AppContext = React.createContext();
 
 const initialState = {
@@ -23,7 +23,7 @@ const AppProvider = ({ children }) => {
     dispatch({type: "INCREASE", payload: id})
   }
   const decrement = id => {
-    
+    dispatch({type: "DECREMENT", payload: id})
   }
 
   const remove = id => {
